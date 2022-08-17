@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} History {% endblock %}
+
+{% block content %}
+
+<h3 class="my-3">History</h3>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header">Overall</div>
+            <div class="card-body">
+              <h5 class="card-title">Expense (Debit)</h5>
+              <h1 class="card-text">Rs. {{debits}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header">Overall</div>
+            <div class="card-body">
+              <h5 class="card-title">Income (Credit)</h5>
+              <h1 class="card-text">Rs. {{credits}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        {% if balance >= 0 %}
+        <div class="card text-bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">Overall</div>
+            <div class="card-body">
+              <h5 class="card-title">Balance</h5>
+              <h1 class="card-text">Rs. {{balance}}</h1>
+            </div>
+        </div>
+        {% else %}
+        <div class="card text-bg-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header">Overall</div>
+            <div class="card-body">
+              <h5 class="card-title">Balance</h5>
+              <h1 class="card-text">Rs. {{balance}}</h1>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<table class="table table-hover">
+    <tr>
+        <th>S.No.</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Expenses</th>
+        <th>Income</th>
+        <th>Category</th>
+        <th>Description</th>
+    </tr>
+    {% for expense in expenses %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{expense.date}}</td>
+        <td>{{expense.time}}</td>
+        <td>{{expense.debit}}</td>
+        <td>{{expense.credit}}</td>
+        <td>{{expense.category}}</td>
+        <td>{{expense.description}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

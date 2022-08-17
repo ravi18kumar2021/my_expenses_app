@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} Reports {% endblock %}
+
+{% block content %}
+
+<h3 class="my-3">My Expense Reports</h3>
+<hr>
+<form action="{% url 'reports' %}" method="post">
+    {% csrf_token %}
+    <div class="col-md-6 my-3"><strong>Duration :</strong>
+        <select name="duration" id="" class="form-select">
+            <option value="">Select Report Type</option>
+            <option value="0">Yearly Report</option>
+            <option value="1">Monthly Report</option>
+        </select>
+    </div>
+    <div class="col-md-6 my-3"><strong>Year :</strong>
+        <select name="year" id="" class="form-select">
+            <option value="">Select Year</option>
+            {% for year in my_years %}
+            <option value="{{year}}">{{year}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-6 my-3"><strong>Month :</strong>
+        <select name="month" id="" class="form-select">
+            <option value="">Select Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+    </div>
+    <div class="col-md-6 my-3">
+        <input type="submit" value="Get Report" class="form-control btn btn-primary">
+    </div>
+</form>
+<br>
+<table class="table table-hover">
+    <tr>
+        <th>S.No.</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Category</th>
+        <th>Description</th>
+    </tr>
+    {% if expenses %}
+    {% for expense in expenses %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{expense.date}}</td>
+        <td>{{expense.time}}</td>
+        <td>{{expense.debit}}</td>
+        <td>{{expense.credit}}</td>
+        <td>{{expense.category}}</td>
+        <td>{{expense.description}}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="7" style="text-align: center;">No Records</td>
+    </tr>
+    {% endif %}
+</table>
+{% endblock %}
